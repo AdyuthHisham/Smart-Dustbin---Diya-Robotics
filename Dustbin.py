@@ -1,4 +1,5 @@
-from machine import Pin, PWM, time_pulse_us
+from machine import Pin, PWM, time_pulse_us,I2C
+import ssd1306
 import time
 
 ir = Pin(16,Pin.IN)
@@ -6,6 +7,10 @@ led1 = Pin(8,Pin.OUT)
 
 servo_1 = PWM(Pin(20))
 servo_1.freq(50)
+
+i2c = I2C(0,sda=Pin(4), scl=Pin(5))
+display = ssd1306.SSD1306_I2C(128, 64, i2c)
+
 '''
 servo_2 = PWM(Pin(21))
 servo_2.freq(50)
@@ -41,6 +46,8 @@ while True:
     '''
     if ir.value() == False:
         print("Opening dustbin")
+        display.text('Dustbin Open', 0, 15, 1)
+        display.show()
         servo_1.duty_u16(max_duty)
         #servo_2.duty_u16(max_duty)
         time.sleep(5)
@@ -57,14 +64,20 @@ while True:
 
     ultrason_duration = time_pulse_us(echo_pin, 1, 30000) 
     distance_cm = SOUND_SPEED * ultrason_duration / 20000
-
+    
+    display.text('Dustbin Closed', 0, 15, 1)
+    display.show()
+    
     print(f"Distance : {distance_cm} cm")
     if distance_cm < 10:
         print("Dustbin full")
+        display.text('Dustbin Full', 0, 25, 1)
+        display.show()
         led1.value(1)
         time.sleep_ms(750)
-    
-    led1.value(0)
-        #Send message to number
+    else:
+        display.text('            ',0,25,1)    
+    #display.show()
     time.sleep_ms(750)
+    display.fill(0) 
     
