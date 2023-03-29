@@ -3,7 +3,6 @@ import ssd1306
 import time
 
 ir = Pin(16,Pin.IN)
-led1 = Pin(8,Pin.OUT)
 
 servo_1 = PWM(Pin(20))
 servo_1.freq(50)
@@ -29,21 +28,7 @@ servo_1.duty_u16(min_duty)
 #servo_2.duty_u16(min_duty)
 
 while True:
-    '''
-    if ir.value() == False:
-        flag = not flag
-        if flag == 0:
-            print("Closing dustbin")
-            #set duty cycle of servo to min value
-            servo_1.duty_u16(min_duty)
-            servo_2.duty_u16(min_duty)
-        else:
-            print("Opening dustbin")
-            #set duty cycle of servo to max value
-            servo_1.duty_u16(max_duty)
-            servo_2.duty_u16(max_duty)
-        time.sleep_ms(750)
-    '''
+ 
     if ir.value() == False:
         print("Opening dustbin")
         display.text('Dustbin Open', 0, 15, 1)
@@ -73,11 +58,9 @@ while True:
         print("Dustbin full")
         display.text('Dustbin Full', 0, 25, 1)
         display.show()
-        led1.value(1)
         time.sleep_ms(750)
-    else:
-        display.text('            ',0,25,1)    
-    #display.show()
+    display.text(f"DISTANCE: {distance_cm}", 0, 40, 1)
+    display.show()
     time.sleep_ms(750)
     display.fill(0) 
     
