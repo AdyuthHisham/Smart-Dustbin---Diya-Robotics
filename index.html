@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smarty</title>
+    <style>
+      body {
+        background-color: #212121;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .title{
+        font-size: 2rem;
+      }
+      .title2{
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+      
+      .output{
+        margin-top: 10px;
+        font-size:2rem;
+        border-style:double;
+        text-align: center;
+        padding:1rem 3rem;
+      }
+      .status{
+        border-style:double;
+        font-size: 2rem;
+        background-color: darkred;
+        padding: 1rem 5rem;
+        
+      }
+      #space_left{
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="title"> Smart Dustbin</p>
+
+      <p class="title2">Garbage Level</p>
+      <p class="output">LevelReading</p>
+      <p class="status" id="lid_status">Lid Closed</p>
+      <p class="status" id="space_left">Not full</p>
+    <script ">
+      let lid = document.getElementById('lid_status');
+      let is_full = document.getElementById('space_left');
+      if(lid.innerHTML === 'Lid Open'){
+        lid.style.backgroundColor = "green";
+      }
+      if(is_full.innerHTML === 'Full'){
+        is_full.style.backgroundColor="darkred";
+      }
+    </script>  
+  </body>
+</html>
